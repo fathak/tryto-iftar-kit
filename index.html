@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRYTO - Ramadan Iftar Kit Order</title>
+    <title>Tryito Cloud Kitchen - Ramadan Iftar Kit Order</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF6347 100%);
+            background: linear-gradient(135deg, #1a8a4f 0%, #1e6f47 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -28,22 +28,66 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            background: linear-gradient(135deg, #1a8a4f 0%, #1e6f47 100%);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo-text {
+            font-size: 42px;
+            font-weight: bold;
+            color: #1a8a4f;
+        }
+
+        .logo-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f9b233;
+            border-radius: 50%;
+            top: 12px;
+            right: 16px;
         }
 
         .header h1 {
             font-size: 2.5em;
-            color: #FFD700;
-            margin-bottom: 10px;
+            color: white;
+            margin-bottom: 5px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: #f9b233;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .header p {
             font-size: 1.1em;
             color: #FFF;
+            margin-top: 10px;
         }
 
         .form-section {
@@ -51,15 +95,15 @@
         }
 
         .menu-section {
-            background: linear-gradient(135deg, #FFF5E1 0%, #FFE4B5 100%);
+            background: linear-gradient(135deg, #f0f9f4 0%, #e8f5e9 100%);
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 10px;
-            border: 2px solid #FFD700;
+            border: 2px solid #f9b233;
         }
 
         .menu-section h3 {
-            color: #8B0000;
+            color: #1a8a4f;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
@@ -69,11 +113,11 @@
             padding: 15px;
             margin: 10px 0;
             border-radius: 8px;
-            border-left: 4px solid #DC143C;
+            border-left: 4px solid #1a8a4f;
         }
 
         .day-menu h4 {
-            color: #DC143C;
+            color: #1a8a4f;
             margin-bottom: 8px;
         }
 
@@ -89,7 +133,7 @@
         }
 
         .day-menu li strong {
-            color: #8B0000;
+            color: #1a8a4f;
         }
 
         .form-group {
@@ -99,7 +143,7 @@
         label {
             display: block;
             margin-bottom: 8px;
-            color: #8B0000;
+            color: #1a8a4f;
             font-weight: 600;
             font-size: 1em;
         }
@@ -107,7 +151,7 @@
         input, select, textarea {
             width: 100%;
             padding: 12px;
-            border: 2px solid #FFD700;
+            border: 2px solid #f9b233;
             border-radius: 8px;
             font-size: 1em;
             transition: all 0.3s;
@@ -115,8 +159,8 @@
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #DC143C;
-            box-shadow: 0 0 10px rgba(220, 20, 60, 0.2);
+            border-color: #1a8a4f;
+            box-shadow: 0 0 10px rgba(26, 138, 79, 0.2);
         }
 
         textarea {
@@ -125,7 +169,7 @@
         }
 
         .price-display {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            background: linear-gradient(135deg, #f9b233 0%, #e6a32a 100%);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
@@ -133,26 +177,26 @@
         }
 
         .price-display h3 {
-            color: #8B0000;
+            color: #1a8a4f;
             font-size: 1.5em;
         }
 
         .price-display .amount {
             font-size: 2.5em;
-            color: #8B0000;
+            color: #1a8a4f;
             font-weight: bold;
         }
 
         .upi-section {
-            background: #f9f9f9;
+            background: #f0f9f4;
             padding: 20px;
             border-radius: 10px;
             margin: 20px 0;
-            border: 2px dashed #DC143C;
+            border: 2px dashed #1a8a4f;
         }
 
         .upi-section h3 {
-            color: #DC143C;
+            color: #1a8a4f;
             margin-bottom: 15px;
         }
 
@@ -162,14 +206,14 @@
             border-radius: 8px;
             text-align: center;
             font-size: 1.2em;
-            color: #8B0000;
+            color: #1a8a4f;
             font-weight: bold;
             margin: 10px 0;
-            border: 2px solid #FFD700;
+            border: 2px solid #f9b233;
         }
 
         .payment-instructions {
-            background: #FFF5E1;
+            background: white;
             padding: 15px;
             border-radius: 8px;
             margin-top: 10px;
@@ -187,7 +231,7 @@
         .submit-btn {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            background: linear-gradient(135deg, #1a8a4f 0%, #1e6f47 100%);
             color: white;
             border: none;
             border-radius: 10px;
@@ -195,12 +239,13 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.4);
+            box-shadow: 0 5px 15px rgba(26, 138, 79, 0.4);
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(220, 20, 60, 0.6);
+            box-shadow: 0 8px 20px rgba(26, 138, 79, 0.6);
+            background: linear-gradient(135deg, #156f3f 0%, #1a5f3a 100%);
         }
 
         .submit-btn:disabled {
@@ -212,19 +257,19 @@
         .contact-info {
             text-align: center;
             padding: 20px;
-            background: #f9f9f9;
+            background: #f0f9f4;
             color: #333;
         }
 
         .contact-info a {
-            color: #DC143C;
+            color: #1a8a4f;
             text-decoration: none;
             font-weight: bold;
         }
 
         .success-message {
             display: none;
-            background: #4CAF50;
+            background: #1a8a4f;
             color: white;
             padding: 20px;
             border-radius: 10px;
@@ -234,7 +279,7 @@
 
         .error-message {
             display: none;
-            background: #f44336;
+            background: #d32f2f;
             color: white;
             padding: 15px;
             border-radius: 8px;
@@ -249,20 +294,36 @@
             .price-display .amount {
                 font-size: 2em;
             }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-text {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>TRYITO</h1>
-            <p>Cloud Kitchen - Ramadan Iftar Kit</p>
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-text">T</div>
+                    <div class="logo-dot"></div>
+                </div>
+            </div>
+            <h1>Tryito</h1>
+            <div class="subtitle">Cloud Kitchen</div>
+            <p>Ramadan Iftar Kit</p>
         </div>
 
         <div class="form-section">
             <div class="menu-section">
                 <h3>🌙 Ramadan Iftar Kit</h3>
-                <p style="text-align: center; color: #8B0000; margin-bottom: 15px; font-size: 1.2em;"><strong>₹150 per kit</strong></p>
+                <p style="text-align: center; color: #1a8a4f; margin-bottom: 15px; font-size: 1.2em;"><strong>₹150 per kit</strong></p>
                 
                 <div class="day-menu">
                     <h4>What's Inside? 🎁</h4>
@@ -273,7 +334,7 @@
                         <li>🍛 <strong>Delicious main course with sides</strong></li>
                         <li>🌟 <strong>Different menu each day - it's a surprise!</strong></li>
                     </ul>
-                    <p style="text-align: center; color: #DC143C; margin-top: 15px; font-weight: bold;">
+                    <p style="text-align: center; color: #1a8a4f; margin-top: 15px; font-weight: bold;">
                         Experience the joy of discovering a new delicious meal every day! 🎉
                     </p>
                 </div>
@@ -323,9 +384,9 @@
                         </ol>
                     </div>
                     <div class="upi-id">
-                        UPI ID: <span id="upiId">fathimkhair@oksbi</span>
+                        UPI ID: <span id="upiId">YOUR_UPI_ID@paytm</span>
                     </div>
-                    <p style="text-align: center; color: #DC143C; margin-top: 10px; font-size: 0.9em;">
+                    <p style="text-align: center; color: #1a8a4f; margin-top: 10px; font-size: 0.9em;">
                         <strong>⚠️ Please complete payment before submitting the form</strong>
                     </p>
                 </div>
@@ -355,7 +416,7 @@
 
     <script>
         // Configuration - ADD YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxlWu5RJ3lTaYNq5h2VCZwN-lLRb4eFum3-MApfKkw4V3Am6wnWupz-KXVrC-uOklh/exec';
+        const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
         // Calculate total amount
         const quantityInput = document.getElementById('quantity');
