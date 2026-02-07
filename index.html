@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRYTO - Ramadan Iftar Kit Order</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF6347 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #FFD700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #FFF;
+        }
+
+        .form-section {
+            padding: 30px;
+        }
+
+        .menu-section {
+            background: linear-gradient(135deg, #FFF5E1 0%, #FFE4B5 100%);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 2px solid #FFD700;
+        }
+
+        .menu-section h3 {
+            color: #8B0000;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .day-menu {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #DC143C;
+        }
+
+        .day-menu h4 {
+            color: #DC143C;
+            margin-bottom: 8px;
+        }
+
+        .day-menu ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .day-menu li {
+            padding: 3px 0;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .day-menu li strong {
+            color: #8B0000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8B0000;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #DC143C;
+            box-shadow: 0 0 10px rgba(220, 20, 60, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .price-display {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .price-display h3 {
+            color: #8B0000;
+            font-size: 1.5em;
+        }
+
+        .price-display .amount {
+            font-size: 2.5em;
+            color: #8B0000;
+            font-weight: bold;
+        }
+
+        .upi-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px dashed #DC143C;
+        }
+
+        .upi-section h3 {
+            color: #DC143C;
+            margin-bottom: 15px;
+        }
+
+        .upi-id {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #8B0000;
+            font-weight: bold;
+            margin: 10px 0;
+            border: 2px solid #FFD700;
+        }
+
+        .payment-instructions {
+            background: #FFF5E1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .payment-instructions ol {
+            padding-left: 20px;
+            color: #333;
+        }
+
+        .payment-instructions li {
+            margin: 8px 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 20, 60, 0.6);
+        }
+
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .contact-info {
+            text-align: center;
+            padding: 20px;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        .contact-info a {
+            color: #DC143C;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .error-message {
+            display: none;
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .price-display .amount {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>TRYTO</h1>
+            <p>Cloud Kitchen - Ramadan Iftar Kit</p>
+        </div>
+
+        <div class="form-section">
+            <div class="menu-section">
+                <h3>🌙 Ramadan Iftar Kit</h3>
+                <p style="text-align: center; color: #8B0000; margin-bottom: 15px; font-size: 1.2em;"><strong>₹150 per kit</strong></p>
+                
+                <div class="day-menu">
+                    <h4>What's Inside? 🎁</h4>
+                    <ul>
+                        <li>✨ <strong>Premium quality ingredients</strong></li>
+                        <li>🍽️ <strong>Complete iftar meal for one person</strong></li>
+                        <li>🥗 <strong>Fresh fruits, juice, and traditional items</strong></li>
+                        <li>🍛 <strong>Delicious main course with sides</strong></li>
+                        <li>🌟 <strong>Different menu each day - it's a surprise!</strong></li>
+                    </ul>
+                    <p style="text-align: center; color: #DC143C; margin-top: 15px; font-weight: bold;">
+                        Experience the joy of discovering a new delicious meal every day! 🎉
+                    </p>
+                </div>
+            </div>
+
+            <form id="orderForm">
+                <div class="error-message" id="errorMessage"></div>
+                
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Number of Kits *</label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="20" value="1" required>
+                </div>
+
+                <div class="price-display">
+                    <h3>Total Amount</h3>
+                    <div class="amount">₹<span id="totalAmount">150</span></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Delivery Address (Thalassery area only) *</label>
+                    <textarea id="address" name="address" required placeholder="House name/number, Street, Landmark, Area"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="deliveryDate">Preferred Start Date *</label>
+                    <input type="date" id="deliveryDate" name="deliveryDate" required>
+                </div>
+
+                <div class="upi-section">
+                    <h3>💳 Payment Instructions</h3>
+                    <div class="payment-instructions">
+                        <ol>
+                            <li>Pay the total amount to our UPI ID below</li>
+                            <li>Use any UPI app (Google Pay, PhonePe, Paytm, etc.)</li>
+                            <li>After payment, enter the Transaction ID in the form</li>
+                            <li>We'll verify and confirm your order within 2 hours</li>
+                        </ol>
+                    </div>
+                    <div class="upi-id">
+                        UPI ID: <span id="upiId">YOUR_UPI_ID@paytm</span>
+                    </div>
+                    <p style="text-align: center; color: #DC143C; margin-top: 10px; font-size: 0.9em;">
+                        <strong>⚠️ Please complete payment before submitting the form</strong>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="transactionId">UPI Transaction ID / Reference Number *</label>
+                    <input type="text" id="transactionId" name="transactionId" required placeholder="e.g., 123456789012">
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Submit Order
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    <h3>✅ Order Submitted Successfully!</h3>
+                    <p>We'll verify your payment and confirm within 2 hours.</p>
+                    <p>Order ID: <strong><span id="orderId"></span></strong></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <p>📞 Contact: <a href="tel:8943947822">8943947822</a>, <a href="tel:9544337770">9544337770</a></p>
+            <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Delivery only in Thalassery area</p>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - ADD YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+        const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+        // Calculate total amount
+        const quantityInput = document.getElementById('quantity');
+        const totalAmountSpan = document.getElementById('totalAmount');
+        const pricePerKit = 150;
+
+        quantityInput.addEventListener('input', function() {
+            const quantity = parseInt(this.value) || 1;
+            const total = quantity * pricePerKit;
+            totalAmountSpan.textContent = total;
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('deliveryDate').setAttribute('min', today);
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Hide messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                quantity: document.getElementById('quantity').value,
+                totalAmount: document.getElementById('totalAmount').textContent,
+                address: document.getElementById('address').value,
+                deliveryDate: document.getElementById('deliveryDate').value,
+                transactionId: document.getElementById('transactionId').value,
+                orderDate: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+                status: 'Pending Verification'
+            };
+            
+            try {
+                // Send to Google Sheets
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Generate order ID
+                const orderId = 'TRY' + Date.now().toString().slice(-8);
+                document.getElementById('orderId').textContent = orderId;
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                document.getElementById('orderForm').reset();
+                totalAmountSpan.textContent = '150';
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.textContent = '❌ Something went wrong. Please try again or call us at 8943947822';
+                errorMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Order';
+            }
+        });
+    </script>
+</body>
+</html>
