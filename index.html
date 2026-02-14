@@ -372,9 +372,40 @@
                     <input type="number" id="quantity" name="quantity" min="1" max="20" value="1" required>
                 </div>
 
+                <div class="form-group">
+                    <div style="background: #f0f9f4; padding: 15px; border-radius: 8px; border: 2px solid #f9b233;">
+                        <label style="display: flex; align-items: center; cursor: pointer; margin-bottom: 0;">
+                            <input type="checkbox" id="suhoorNeeded" name="suhoorNeeded" style="width: auto; margin-right: 10px; cursor: pointer; transform: scale(1.3);">
+                            <span style="font-size: 1.1em;">
+                                🌙 Add Complimentary Suhoor Food (FREE)
+                            </span>
+                        </label>
+                        <small style="color: #666; font-size: 0.9em; display: block; margin-top: 8px; margin-left: 32px;">
+                            ✨ Enjoy a free suhoor meal with your iftar kit!
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group" id="suhoorQuantityGroup" style="display: none;">
+                    <label for="suhoorQuantity">Number of Complimentary Suhoor meals *</label>
+                    <input type="number" id="suhoorQuantity" name="suhoorQuantity" min="1" max="20" value="1">
+                    <small style="color: #1a8a4f; font-size: 0.9em; display: block; margin-top: 5px; font-weight: 600;">
+                        🎁 Complimentary - No extra charge! (Maximum: same as Iftar kits)
+                    </small>
+                </div>
+
                 <div class="price-display">
                     <h3>Total Amount</h3>
                     <div class="amount">₹<span id="totalAmount">150</span></div>
+                    <div id="priceBreakdown" style="font-size: 0.9em; margin-top: 10px; color: #1a8a4f;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="remarks">Special Requests / Remarks *</label>
+                    <textarea id="remarks" name="remarks" required placeholder="E.g., Dietary restrictions, food allergies, specific delivery time, or any special requests..."></textarea>
+                    <small style="color: #666; font-size: 0.9em; display: block; margin-top: 5px;">
+                        💡 Let us know if you have any allergies or special requirements
+                    </small>
                 </div>
 
                 <div class="form-group">
@@ -430,17 +461,69 @@
 
     <script>
         // Configuration - ADD YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZP4so7ZW9mC8HfHhxINOzlG9_pUx9ZLWzix_JU4wGLNkB_RndOWgk-aCE0yBTwug_jg/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDggHF473SMDFZtXICHJziW6GI_g8TZyEUwaSUqghb9aPMgpawONakueKAtb8mO53QIQ/exec';
 
         // Calculate total amount
         const quantityInput = document.getElementById('quantity');
+        const suhoorNeededCheckbox = document.getElementById('suhoorNeeded');
+        const suhoorQuantityGroup = document.getElementById('suhoorQuantityGroup');
+        const suhoorQuantityInput = document.getElementById('suhoorQuantity');
         const totalAmountSpan = document.getElementById('totalAmount');
+        const priceBreakdown = document.getElementById('priceBreakdown');
         const pricePerKit = 150;
 
-        quantityInput.addEventListener('input', function() {
-            const quantity = parseInt(this.value) || 1;
-            const total = quantity * pricePerKit;
+        function updateSuhoorMax() {
+            const iftarQty = parseInt(quantityInput.value) || 1;
+            // Set max suhoor to match iftar quantity
+            suhoorQuantityInput.setAttribute('max', iftarQty);
+            
+            // If current suhoor quantity exceeds iftar quantity, reset it
+            if (parseInt(suhoorQuantityInput.value) > iftarQty) {
+                suhoorQuantityInput.value = iftarQty;
+            }
+        }
+
+        function calculateTotal() {
+            const iftarQty = parseInt(quantityInput.value) || 1;
+            const iftarTotal = iftarQty * pricePerKit;
+            
+            let breakdown = `Iftar: ${iftarQty} × ₹${pricePerKit} = ₹${iftarTotal}`;
+            
+            if (suhoorNeededCheckbox.checked) {
+                const suhoorQty = parseInt(suhoorQuantityInput.value) || 1;
+                breakdown += `<br>Suhoor: ${suhoorQty} meals (Complimentary - FREE! 🎁)`;
+            }
+            
+            const total = iftarTotal; // Suhoor is free, so total is only iftar
             totalAmountSpan.textContent = total;
+            priceBreakdown.innerHTML = breakdown;
+        }
+
+        quantityInput.addEventListener('input', function() {
+            updateSuhoorMax();
+            calculateTotal();
+        });
+        
+        suhoorNeededCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                suhoorQuantityGroup.style.display = 'block';
+                suhoorQuantityInput.required = true;
+                updateSuhoorMax();
+            } else {
+                suhoorQuantityGroup.style.display = 'none';
+                suhoorQuantityInput.required = false;
+                suhoorQuantityInput.value = 1;
+            }
+            calculateTotal();
+        });
+        
+        suhoorQuantityInput.addEventListener('input', function() {
+            // Enforce max limit
+            const maxAllowed = parseInt(this.getAttribute('max'));
+            if (parseInt(this.value) > maxAllowed) {
+                this.value = maxAllowed;
+            }
+            calculateTotal();
         });
 
         // Set minimum date to today
@@ -459,17 +542,44 @@
             errorMessage.style.display = 'none';
             successMessage.style.display = 'none';
             
+            // Validate suhoor quantity doesn't exceed iftar quantity
+            const suhoorCheckbox = document.getElementById('suhoorNeeded');
+            if (suhoorCheckbox.checked) {
+                const iftarQty = parseInt(document.getElementById('quantity').value);
+                const suhoorQty = parseInt(document.getElementById('suhoorQuantity').value);
+                
+                if (suhoorQty > iftarQty) {
+                    errorMessage.textContent = '❌ Suhoor meals cannot exceed the number of Iftar kits!';
+                    errorMessage.style.display = 'block';
+                    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                
+                if (!suhoorQty || suhoorQty < 1) {
+                    errorMessage.textContent = '❌ Please enter a valid number of Suhoor meals!';
+                    errorMessage.style.display = 'block';
+                    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+            }
+            
             // Disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
             
             // Get form data
+            const suhoorNeeded = suhoorCheckbox.checked ? 'Yes' : 'No';
+            const suhoorQuantity = suhoorCheckbox.checked ? document.getElementById('suhoorQuantity').value : '0';
+            
             const formData = {
                 name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
                 email: document.getElementById('email').value,
-                quantity: document.getElementById('quantity').value,
+                iftarQuantity: document.getElementById('quantity').value,
+                suhoorNeeded: suhoorNeeded,
+                suhoorQuantity: suhoorQuantity,
                 totalAmount: document.getElementById('totalAmount').textContent,
+                remarks: document.getElementById('remarks').value,
                 address: document.getElementById('address').value,
                 deliveryDate: document.getElementById('deliveryDate').value,
                 transactionId: document.getElementById('transactionId').value,
